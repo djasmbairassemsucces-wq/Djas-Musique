@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dmcreation.djasmusique.data.Library
 import com.dmcreation.djasmusique.data.ThemeMode
 
 @Composable
@@ -29,6 +30,7 @@ fun SettingsScreen(
     themeMode: ThemeMode,
     onThemeChange: (ThemeMode) -> Unit,
     onReplayIntro: () -> Unit,
+    onRescan: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -44,6 +46,13 @@ fun SettingsScreen(
             ThemeRow("Suivre le système", themeMode == ThemeMode.SYSTEM) { onThemeChange(ThemeMode.SYSTEM) }
             ThemeRow("Mode clair", themeMode == ThemeMode.LIGHT) { onThemeChange(ThemeMode.LIGHT) }
             ThemeRow("Mode sombre", themeMode == ThemeMode.DARK) { onThemeChange(ThemeMode.DARK) }
+        }
+        Spacer(Modifier.height(16.dp))
+
+        SectionCard("Bibliothèque") {
+            Text("${Library.tracks.size} musique(s) · ${Library.videos.size} vidéo(s) détectée(s)")
+            Spacer(Modifier.height(10.dp))
+            Button(onClick = onRescan) { Text("Analyser à nouveau le téléphone") }
         }
         Spacer(Modifier.height(16.dp))
 
@@ -65,7 +74,7 @@ fun SettingsScreen(
         Spacer(Modifier.height(16.dp))
 
         SectionCard("À propos") {
-            Text("DJAS MUSIQUE · version 0.1.0 (étape 1)")
+            Text("DJAS MUSIQUE · version 0.2.0 (étape 2)")
         }
     }
 }
